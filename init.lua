@@ -341,6 +341,25 @@ bool is_scrollok (const WINDOW *);	/* generated */
 bool is_syncok (const WINDOW *);		/* generated */
 int wgetscrreg (const WINDOW *, int *, int *); /* generated */
 
+
+
+/* Vars */
+
+extern chtype acs_map[];
+
+extern WINDOW * curscr;
+extern WINDOW * newscr;
+extern WINDOW * stdscr;
+extern char ttytype[];
+extern int COLORS;
+extern int COLOR_PAIRS;
+extern int COLS;
+extern int ESCDELAY;
+extern int LINES;
+extern int TABSIZE;
+
+
+extern cchar_t * _nc_wacs
 /*
  * Function prototypes for wide-character operations.
  *
