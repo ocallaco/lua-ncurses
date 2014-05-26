@@ -1,9 +1,48 @@
 
-local curses = require './init.lua'
+local curses = require 'ncurses'
+local async = require 'async'
+
+local function create_newwin(height, width, starty, startx)
+   local local_win;
+
+	local_win = curses.newwin(height, width, starty, startx)
+	curses.box(local_win, 0 , 0)		
+   curses.wrefresh(local_win)
+	return local_win;
+end
+
+local function destroy_win(local_win)
+   local sp = ffi.cast("unsigned char", " ")
+--   curses.wborder(local_win, sp, sp, sp,sp,sp,sp,sp,sp)
+   curses.wclear(local_win)
+   curses.wrefresh(local_win)
+   curses.delwin(local_win)
+end
 
 curses.initscr()
-curses.printw("Hello World !!!")
-curses.refresh()
-curses.getch()
-curses.endwin()
+curses.cbreak()
+curses.keypad(curses.stdscr, true)
 
+local height = 10;
+local width = 40;
+local starty = math.floor((curses.LINES - height) / 2)
+local startx = math.floor((curses.COLS - width) / 2)
+
+curses.refresh();
+local my_win = create_newwin(height, width, starty, startx)
+
+local step = 1
+async.setInterval(1000, function()
+   if(startx + (width ) > curses.COLS) then
+      step = -1
+   elseif(startx - (width ) < 0) then
+      step = 1
+   end
+   
+   startx = startx + step
+   destroy_win(my_win)
+   my_win = create_newwin(height, width, starty,startx)
+end)
+
+async.go()
+curses.endwin()
