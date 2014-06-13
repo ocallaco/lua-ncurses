@@ -359,7 +359,7 @@ extern int LINES;
 extern int TABSIZE;
 
 
-extern cchar_t * _nc_wacs
+extern cchar_t * _nc_wacs;
 /*
  * Function prototypes for wide-character operations.
  *
