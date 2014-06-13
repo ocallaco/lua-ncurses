@@ -28,21 +28,12 @@ local width = 40;
 local starty = math.floor((curses.LINES - height) / 2)
 local startx = math.floor((curses.COLS - width) / 2)
 
-curses.refresh();
 local my_win = create_newwin(height, width, starty, startx)
 
-local step = 1
-async.setInterval(1000, function()
-   if(startx + (width ) > curses.COLS) then
-      step = -1
-   elseif(startx - (width ) < 0) then
-      step = 1
-   end
-   
-   startx = startx + step
-   destroy_win(my_win)
-   my_win = create_newwin(height, width, starty,startx)
-end)
+curses.mvwprintw(my_win, 0,1, "TEST TEST TEST")
+curses.refresh()
+curses.wrefresh(my_win)
+curses.getch()
+destroy_win(my_win)
 
 async.go()
-curses.endwin()
