@@ -8,3 +8,8 @@ dependencies
 -----------
 
 ncurses
+
+
+License
+------------
+MIT License
